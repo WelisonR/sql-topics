@@ -16,7 +16,7 @@ Características de querys hierárquicas:
 *   Há uma pseudo-coluna `LEVEL` que retorna a profundidade da hierarquia.
 *   Caso a hierarquia possua loop, utilizar as opções:
     *   Pseudo-coluna `CONNECT_BY_ISCYCLE` que acusa as linhas que causam o loop.
-    *   `CONNECY BY NOCYCLE` retorna resultado mesmo que haja ciclos na query.
+    *   `CONNECY BY NOCYCLE` que retorna o resultado mesmo que haja ciclos na query.
 
 *   Resumo: https://docs.snowflake.com/en/sql-reference/constructs/connect-by.html
 

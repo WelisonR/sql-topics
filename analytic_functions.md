@@ -3,7 +3,7 @@
 Características das funções analíticas:
 
 *   São aplicadas após joins, WHERE, GROUP BY e HAVING, porém, antes do último ORDER BY executado.
-*   Evitam a redução das linhas, isto é, apresenta os dados linha a linha, diferente de uma cláusula `GROUP BY` que agrupa os dados.
+*   Evitam a redução de linhas, isto é, apresenta os dados linha a linha, diferente de uma cláusula `GROUP BY` que agrupa os dados.
 
 Sintaxe:
 
@@ -19,7 +19,7 @@ Alguns casos:
 *   `AVG(sal) OVER ()`: faz a média de todas as linhas.
 *   `AVG(sal) OVER (PARTITION BY deptno)`: a média será SOBRE a partição departamento, isto é, apresentará a média salarial do departamento.
 *   `FIRST_VALUE(sal IGNORE NULLS) OVER (PARTITION BY deptno ORDER BY sal ASC NULLS LAST)`: se a ordem importar, utilizar `ORDER BY`.
-    *   Nesse caso `NULLS LAST` é desnessário, faria-se necessário caso se a ordenação fosse decrescente.
+    *   Nesse caso `NULLS LAST` é desnessário, faria-se necessário se a ordenação fosse decrescente.
 
 Referências:
 
@@ -28,7 +28,7 @@ Referências:
 
 ## RANK
 
-*   Realiza uma enumeração com base em uma coluna.
+*   Realiza uma enumeração.
 *   Observar que, caso a coluna tenha dois valores iguais (empate), ambas estão no mesmo `RANK` e o próximo número será o `atual+2` (há gap).
 
 ### Exemplo de Código
@@ -58,7 +58,7 @@ FROM emp;
 
 ```sql
 SELECT *
-FROM (deptno, empno, ename, sal,
+FROM (SELECT deptno, empno, ename, sal,
         RANK() OVER (PARTITION BY deptno ORDER BY sal) AS row_rank
     FROM emp)
 WHERE row_rank <= 1;
