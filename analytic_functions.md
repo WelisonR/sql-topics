@@ -74,7 +74,7 @@ WHERE row_rank <= 1;
 ## DENSE RANK
 
 *   Realiza uma enumeração.
-*   Não deixa lacunas (gaps) na enumeração se caso houver linhas com o mesmo valor para dadas colunas.
+*   Não deixa lacunas (gaps) na enumeração caso houver linhas com o mesmo valor para dadas colunas.
 
 ### Exemplo de código
 
