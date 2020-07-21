@@ -105,3 +105,99 @@ SELECT ROUND(14.932, -1) FROM DUAL; -- Arredonda 1.4932 e multiplica por 10
 SELECT TRUNC(15.79,1) "Truncate" FROM DUAL;
 -- >> 15.7
 ```
+
+## Funções relacionadas a strings
+
+### INITCAP
+
+*   Retorna a string original com o primeiro caracter de todas as palavras em maiúsculo.
+
+```sql
+SELECT INITCAP('that Is a teste') FROM DUAL;
+-- >> That Is A Teste
+```
+
+### LOWER & UPPER
+
+*   LOWER: retorna a string toda em minúsculo.
+*   UPPER: retorna a string toda em maiúsculo.
+
+```sql
+SELECT LOWER('HELLO, FRIENDS') FROM DUAL;
+-- >> hello, friends
+SELECT UPPER('hello, FRIENDS') FROM DUAL;
+-- >> HELLO, FRIENDS
+```
+
+### LPAD & RPAD
+
+*   LPAD: retorna uma string preenchida com caracteres à esquerda até completar n caracteres.
+*   RPAD: retorna uma string preenchida com caracteres à direita até completar n caracteres.
+
+```sql
+SELECT LPAD('Ohayo!', 9, '*!') FROM DUAL;
+-- >> *!*Ohayo!
+SELECT RPAD('Ohayo!', 9, '!') FROM DUAL;
+-- >> Ohayo!!!!
+```
+
+### LTRIM & RTRIM
+
+*   LTRIM: retorna uma string com remoção de um conjunto de caracteres à esquerda.
+*   RTRIM: retorna uma string com remoção de um conjunto de caracteres à direita.
+*   TRIM: retorna uma string com remoção de um conjunto de caracteres.
+    *   Opções: LEADING, TRAILING, BOTH.
+*   Caso o conjunto de caracteres seja omitido, assume-se um espaço em branco.
+
+```sql
+SELECT LTRIM('T Teste de Aceitação', 'Teste de ') FROM DUAL;
+-- >> Aceitação
+SELECT RTRIM('###Walle-Sama###', '#') FROM DUAL; 
+-- >> ###Walle-Sama
+SELECT TRIM(BOTH '#' FROM '###Walle-Sama###') FROM DUAL;
+```
+
+### REGEXP_REPLACE
+
+*   Retorna uma string com substituições que coincidem com a regexp.
+
+*   Referência: https://docs.oracle.com/cd/B19306_01/server.102/b14200/functions130.htm#i1305521
+
+```sql
+-- Nesse caso, poderia colocar 0-9 no lugar de [:digit:].
+SELECT
+    REGEXP_REPLACE('555.555.5555', '([[:digit:]]{3})\.([[:digit:]]{3})\.([[:digit:]]{4})', '(\1) \2-\3')
+FROM
+    DUAL;
+-- >> (555) 555-5555
+```
+
+
+### REGEXP_SUBSTR
+
+*   Retorna a string a qual coincide com a regexp, diferente da `REGEXP_INSTR` que retorna a posição, esse método retorna a própria string.
+
+```sql
+-- Texto entre duas vírgulas
+SELECT
+    REGEXP_SUBSTR('500 Oracle Parkway, Redwood Shores, CA', ',[^,]+,')
+FROM
+    DUAL;
+-- >> , Redwood Shores,
+```
+
+### SUBSTR
+
+*   Retorna uma substring de uma string.
+*   Necessário passar o índice inicial da substring.
+*   A extensão (tamanho) da substring é opcional.
+*   Lembrar que a string em PL/SQL começa no índice 1.
+
+```sql
+-- Substring que começa no índice 1 e tem extensão de 4 caracteres.
+SELECT SUBSTR('just a test.', 1, 4) FROM DUAL;
+-- >> just
+-- Transformar a primeira letra em maísculo
+SELECT UPPER(SUBSTR('just a test.', 1, 1))||SUBSTR('just a test', 2) FROM DUAL;
+-- >> Just a test.
+```
