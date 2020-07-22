@@ -117,6 +117,26 @@ SELECT INITCAP('that Is a teste') FROM DUAL;
 -- >> That Is A Teste
 ```
 
+### INSTR
+
+*   Retorna a posição de ocorrência da n-ésima substring. Caso não encontre, retorna zero.
+*   1º argumento numérico diz referência ao início da procura.
+*   2º argumento numérico indica qual a ocorrência.
+
+```sql
+SELECT INSTR('Hello Hello', 'el', 1, 2) FROM DUAL;
+-- >> 8
+```
+
+### LENGTH
+
+*   Retorna o tamanho de uma string.
+
+```sql
+SELECT LENGTH('Teste do Teste!') FROM DUAL;
+-- >> 15
+```
+
 ### LOWER & UPPER
 
 *   LOWER: retorna a string toda em minúsculo.
@@ -200,4 +220,48 @@ SELECT SUBSTR('just a test.', 1, 4) FROM DUAL;
 -- Transformar a primeira letra em maísculo
 SELECT UPPER(SUBSTR('just a test.', 1, 1))||SUBSTR('just a test', 2) FROM DUAL;
 -- >> Just a test.
+```
+
+## Funções relacionadas a datas
+
+### ADD_MONTHS
+
+*   Retorna uma data acrescida de n meses.
+
+```sql
+SELECT ADD_MONTHS(SYSDATE, 2) FROM DUAL;
+-- >> 09/22/2020 (Query no dia 07/22/2020)
+-- SELECT SYSDATE+1 FROM DUAL; -- adiciona um dia
+```
+
+### TO_CHAR
+
+*   Retorna uma data (string) formatada de acordo com um padrão.
+
+```sql
+SELECT TO_CHAR(SYSTIMESTAMP, 'DD-MM-YYYY HH24:MI:SS') FROM DUAL;
+-- >> 22-07-2020 14:11:32 (sem timezone)
+```
+
+### EXTRACT
+
+*   Retorna a extração de um período de uma data.
+*   Opções: YEAR, MONTH, DAY, HOUR, MINUTE, SECOND.
+
+```sql
+SELECT EXTRACT(DAY FROM SYSDATE) FROM DUAL;
+-- >> 22 (Query no dia 07/22/2020)
+SELECT EXTRACT(HOUR FROM SYSTIMESTAMP) FROM DUAL;
+-- >> 14 (Query no dia 07/22/2020 às 11h08, sem timezone)
+```
+
+## Funções auxiliares
+
+### GREATEST & LEAST
+
+```sql
+SELECT GREATEST ('HARRY', 'HARRIOT', 'HAROLD') FROM DUAL;
+-- >> HARRY
+SELECT LEAST (SYSDATE-1, SYSDATE, SYSDATE+1) FROM DUAL;
+-- >> 07/21/2020 (Query no dia 07/22/2020)
 ```
