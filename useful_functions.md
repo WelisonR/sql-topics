@@ -255,13 +255,74 @@ SELECT EXTRACT(HOUR FROM SYSTIMESTAMP) FROM DUAL;
 -- >> 14 (Query no dia 07/22/2020 às 11h08, sem timezone)
 ```
 
+## Funções de agregação
+
+São funções úties para agregação:
+
+*   AVG, COUNT, FIRST, LAST, MIN, MAX, SUM.
+
 ## Funções auxiliares
 
 ### GREATEST & LEAST
+
+*   GREATEST: retorna o maior elemento da lista.
+*   LEAST: retorna o menor elemento da lista.
 
 ```sql
 SELECT GREATEST ('HARRY', 'HARRIOT', 'HAROLD') FROM DUAL;
 -- >> HARRY
 SELECT LEAST (SYSDATE-1, SYSDATE, SYSDATE+1) FROM DUAL;
 -- >> 07/21/2020 (Query no dia 07/22/2020)
+```
+
+### CAST
+
+*   Transforma uma coluna em outro tipo de dado.
+
+```sql
+SELECT CAST('01-13-2020' AS DATE) FROM DUAL;
+-- >> 01/13/2020 (formato norte-americano de data)
+SELECT CAST(9.36 AS NUMBER(2, 1)) FROM DUAL;
+-- >> 9.4
+```
+
+### DECODE
+
+*   Baseado em um valor de entrada, retorna o seu correspondente em um mapeamento chave-valor.
+*   Caso não encontre um valor correspondente, retorna o 'default' escolhido.
+
+```sql
+SELECT DECODE(3, 1, 'Ohayo',
+        2, 'Arigato',
+        3, 'Walle-Sama',
+        'default')
+FROM DUAL;
+-- >> Walle-Sama
+```
+
+### TO_DATE
+
+*   Transforma string para o formato de data.
+
+```sql
+SELECT TO_DATE('01-OCT-2010','DD-MON-YYYY') FROM DUAL;
+-- >> 10/01/2010
+```
+
+### TO_CHAR
+
+*   Transforma caracter, data, número para string.
+
+```sql
+SELECT TO_CHAR(13) FROM DUAL;
+-- >> 13 (string)
+```
+
+### TO_NUMBER
+
+*   Transforma uma string para um número.
+
+```sql
+SELECT TO_NUMBER('130000.13', '999999D99') FROM DUAL; -- Formato americano
+-- >> 130000.13
 ```
